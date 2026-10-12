@@ -1,0 +1,21 @@
+# Render Web Service. No service is created by extracting this ZIP.
+# Free preview only: SQLite data is not durable on this plan.
+services:
+  - type: web
+    name: sharpai
+    runtime: node
+    region: singapore
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/config
+    envVars:
+      - key: NODE_VERSION
+        value: 22.23.3
+      - key: NODE_ENV
+        value: production
+      - key: PASSPORT_SECRET
+        generateValue: true
+# Optional GROQ_API_KEY and GOOGLE_CLIENT_ID are added in Environment after deploy.
+# Public startup launch: use a paid service + persistent disk, set
+# DB_FILE=/var/data/sharpai.db and mount the disk at /var/data.
